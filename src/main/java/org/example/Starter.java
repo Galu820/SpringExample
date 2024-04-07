@@ -3,9 +3,7 @@ package org.example;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
-import org.springframework.data.domain.Sort;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -29,10 +27,12 @@ public class Starter {
         });
         //получить все записи для "Ann"
         System.out.println("\n\n");
+        System.out.println("получить все записи для \"Ann\"");
         repo.findAllByUsername("Ann").forEach(System.out::println);
 
         //получить все записи содержащие "e" в fio
         System.out.println("\n\n");
+        System.out.println("получить все записи содержащие \"e\" в fio");
         repo.findUsersByFioContains("e").forEach(System.out::println);
 
         List<User> ls = (List<User>) repo.findAll();
@@ -43,18 +43,20 @@ public class Starter {
 
 
 //        //получить все записи
-        ls = repo.findUsersByFio("");
         System.out.println("\n\n");
-        ls.forEach(System.out::println);
+        System.out.println("получить все записи");
+        repo.findAll().forEach(System.out::println);
 //
 //        //добавим новую запись через нативный SQL
         int res = repo.insertUser("BOSS", "Pushkin Alex");
         System.out.println("\n\n");
+        System.out.println("+ BOSS");
         repo.findAll().forEach(System.out::println);
 //
 //        //обновим запись через нативный SQL
         res = repo.updateUsersSetUsernameForIdNative("Always First", 3);
         System.out.println("\n\n");
+        System.out.println("обновим запись через нативный SQL: Always First");
         repo.findAll().forEach(System.out::println);
 
 //
@@ -64,9 +66,11 @@ public class Starter {
         group1.add(new Login("VTB"));
         group1.add(new Login("Phone"));
 
-        ls.get(1).lgns = new HashSet<>();
-        ls.get(1).lgns.addAll(group1);
-        repo.saveAll(ls);
+        group1.forEach(System.out::println);
+        repo.findById(1).get().lgns = new HashSet<>();
+        repo.findById(1).get().lgns.addAll(group1);
+        repo.findAll().forEach(System.out::println);
+        //repo.saveAll(ls);
 
     }
 }
