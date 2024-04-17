@@ -35,11 +35,11 @@ public class Login {
     public Login (String application)
     {
         this.application = application;
-        this.access_date = access_date;
     }
     public Login (String application, String access_date)
     {
         this.application = application;
+        this.access_date = access_date;
     }
     public Login (String application, String access_date, User user)
     {

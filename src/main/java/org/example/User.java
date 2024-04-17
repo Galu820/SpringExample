@@ -35,6 +35,7 @@ public class User {
     @Getter //!!!!
     @Setter //!!!!
     Set<Login> lgns;
+
     @Override
     public String toString()
     {

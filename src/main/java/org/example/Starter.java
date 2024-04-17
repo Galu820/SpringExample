@@ -1,9 +1,16 @@
 package org.example;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.ssl.SslProperties;
 import org.springframework.context.ApplicationContext;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.ResourceLoader;
 
+import java.io.InputStream;
+import java.nio.file.Files;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -59,18 +66,20 @@ public class Starter {
         System.out.println("обновим запись через нативный SQL: Always First");
         repo.findAll().forEach(System.out::println);
 
-//
+//      теперь надо прочитать файлик с логами
+        System.out.println("\n\n");
+        System.out.println("создаем логины");
         HashSet<Login> group1 = new HashSet();
         group1.add(new Login("Web", "01-04-2024"));
         group1.add(new Login("Phone", "31-03-2024"));
-        group1.add(new Login("VTB"));
-        group1.add(new Login("Phone"));
+        group1.add(new Login("VTB", "30-03-2024"));
+        group1.add(new Login("Phone", "29-03-2024"));
 
         group1.forEach(System.out::println);
         repo.findById(1).get().lgns = new HashSet<>();
         repo.findById(1).get().lgns.addAll(group1);
         repo.findAll().forEach(System.out::println);
-        //repo.saveAll(ls);
+        repo.saveAll(ls);
 
     }
 }
